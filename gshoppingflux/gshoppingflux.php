@@ -1968,12 +1968,15 @@ class GShoppingFlux extends Module
 			$p = new Product($product['id_product'], true, $id_lang, $id_shop, $this->context);
 			$attributeCombinations = $p->getAttributeCombinations($id_lang);
 
+/*
 			if ($this->module_conf['mpn_type'] == 'reference' && !empty($product['reference']))
 				$product['pid'] = $product['reference'];
 			else if ($this->module_conf['mpn_type'] == 'supplier_reference' && !empty($product['supplier_reference']))
 				$product['pid'] = $product['supplier_reference'];
-			else
-				$product['pid'] = $product['id_product'];
+                        else
+			        $product['pid'] = $product['id_product'];
+*/
+			$product['pid'] = $product['id_product'];
 			$product['gid'] = $product['pid'];
 
 			$xml_googleshopping = $this->getItemXML($product, $lang, $id_curr, $id_shop);
