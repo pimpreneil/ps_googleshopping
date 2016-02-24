@@ -321,7 +321,7 @@ class GShoppingFlux extends Module
 			
 			if (!count($errors_update_shops)) {
 				$this->confirm = $this->l('The settings have been updated.');
-				$this->generateXMLFiles(0, $shop_id, $shop_group_id);
+//				$this->generateXMLFiles(0, $shop_id, $shop_group_id);
 			}else{
 				$this->_html .= $this->displayError(sprintf($this->l('Unable to update settings for the following shop: %s'), implode(', ', $errors_update_shops)));
 			}
@@ -349,7 +349,7 @@ class GShoppingFlux extends Module
 				GCategories::update($id_gcategory, $gcateg, $export, $condition, $availability, $gender, $age_group, $color, $material, $pattern, $size, $id_shop);
 				$this->confirm = $this->l('Google category has been updated.');
 			}
-			$this->generateXMLFiles(0, $shop_id, $shop_group_id);
+//			$this->generateXMLFiles(0, $shop_id, $shop_group_id);
 		}
 		
 		elseif (Tools::isSubmit('updateLanguage')) {
@@ -363,8 +363,8 @@ class GShoppingFlux extends Module
 				else
 					$this->confirm = $this->l('Selected currency for this language has been saved.');
 			}
-			if ($export) $this->generateXMLFiles($id_glang, $shop_id, $shop_group_id);
-			else $this->_html .= $this->displayConfirmation(html_entity_decode($this->confirm));			
+//			if ($export) $this->generateXMLFiles($id_glang, $shop_id, $shop_group_id);
+			$this->_html .= $this->displayConfirmation(html_entity_decode($this->confirm));			
 		}
 
 		$gcategories = GCategories::gets((int)$id_lang, null, (int)$shop_id);
