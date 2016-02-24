@@ -1935,7 +1935,7 @@ class GShoppingFlux extends Module
 		// File header
 		fwrite($googleshoppingfile, $xml);
 
-		$sql = 'SELECT DISTINCT p.*, pl.*, ps.id_category_default as category_default, gc.*, gl.* '
+		$sql = 'SELECT DISTINCT p.*, pl.*, ps.id_category_default as category_default, gc.*, gl.*, c.creatrice_nom as brand '
 			. 'FROM '._DB_PREFIX_.'product p '
 			. 'INNER JOIN '._DB_PREFIX_.'product_lang pl ON pl.id_product = p.id_product '
 			. 'INNER JOIN '._DB_PREFIX_.'product_shop ps ON ps.id_product = p.id_product '
@@ -1955,7 +1955,7 @@ class GShoppingFlux extends Module
 
 		// Check BRAND
 		if ($this->module_conf['no_brand'] != 1)
-			$sql .= ' AND `p`.`id_manufacturer` != "" AND `p`.`id_manufacturer` != 0';
+			$sql .= ' AND `c`.`creatrice` != 0';
 		
 		$sql .= ' GROUP BY `p`.`id_product`;';
 		$products = Db::getInstance()->ExecuteS($sql);
@@ -2206,8 +2206,8 @@ class GShoppingFlux extends Module
 		}
 
 		// Brand
-		if ($this->module_conf['no_brand'] != 0 && !empty($product['id_manufacturer'])) {
-			$xml_googleshopping .= '<g:brand><![CDATA['.htmlspecialchars(Manufacturer::getNameById((int)$product['id_manufacturer']), self::REPLACE_FLAGS, self::CHARSET, false).']]></g:brand>'."\n";
+		if ($this->module_conf['no_brand'] != 0 && !empty($product['brand'])) {
+			$xml_googleshopping .= '<g:brand><![CDATA['.htmlspecialchars($product['brand'], self::REPLACE_FLAGS, self::CHARSET, false).']]></g:brand>'."\n";
 			$identifier_exists++;
 		}
 
